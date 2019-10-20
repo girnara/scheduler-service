@@ -1,0 +1,8 @@
+---
+- hosts: appServer
+  become: yes
+  serial: 1
+  gather_facts: yes
+  roles:
+    - restart
+

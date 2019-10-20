@@ -1,0 +1,18 @@
+[Unit]
+Description=scheduler_service
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+
+[Service]
+Type=forking
+ExecStart={{deployment_app_directory}}service/{{service_name}}.sh start
+ExecStop={{deployment_app_directory}}service/{{service_name}}.sh stop
+Restart=always
+RestartSec=50
+StartLimitInterval=5000
+StartLimitBurst=100
+PrivateTmp=true
+
+
+[Install]
+WantedBy=multi-user.target

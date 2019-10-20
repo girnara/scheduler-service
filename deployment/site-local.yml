@@ -1,0 +1,9 @@
+---
+- hosts: 127.0.0.1
+  serial: 1
+  connection: local
+  become: yes
+  gather_facts: yes
+  roles:
+    - service
+

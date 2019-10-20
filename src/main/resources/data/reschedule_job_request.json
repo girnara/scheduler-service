@@ -1,0 +1,12 @@
+{
+  "cronExpression": "0 /2 * * * ?",
+  "group": "TEST_GROUP",
+  "name": "TEST_JOB",
+  "parameters": {
+    "WEBHOOK_URL": "http://localhost:18080/v1/test/webhook",
+    "APP_NAME": "TEST_APP",
+    "APP_ENV": "DEV"
+  },
+  "startNow": true,
+  "status": true
+}

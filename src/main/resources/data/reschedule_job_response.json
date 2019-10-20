@@ -1,0 +1,18 @@
+{
+  "statusCode": "SUCCESS",
+  "statusMessage": "Job rescheduled successfully",
+  "payload": {
+    "name": "TEST_JOB",
+    "group": "TEST_GROUP",
+    "cronExpression": "0 /2 * * * ?",
+    "status": true,
+    "scheduled": true,
+    "parameters": {
+      "WEBHOOK_URL": "http://localhost:18080/v1/test/webhook",
+      "APP_NAME": "TEST_APP",
+      "APP_ENV": "DEV"
+    },
+    "startNow": true,
+    "startAt": 0
+  }
+}

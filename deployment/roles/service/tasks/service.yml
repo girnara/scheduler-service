@@ -1,0 +1,50 @@
+---
+- name: Service Dependencies | Create target service location directories
+  file: path={{deployment_app_directory}} state=directory mode=0777
+
+- name: Service Dependencies | Create log directories
+  file: path={{app_log_directory}} state=directory mode=0777
+
+- name: Service Dependencies | Copy service to target host
+  copy: src=application/{{ BUILD_NUMBER }} dest={{deployment_app_directory}}
+
+- name: Service Dependencies | Copy template script
+  template: src={{service_name}}.sh.j2 dest={{deployment_app_directory}}/{{ BUILD_NUMBER }}/{{service_name}}.sh mode=0754
+  
+- name: Service Dependencies | Copy systemctl template to target host
+  template: src={{service_name}}.service.j2 dest=/etc/systemd/system/{{service_name}}.service mode=0664
+
+- name: Remove symlink | After first attempt uncomment it
+  file:
+   path: '"{{deployment_app_directory}}"/service'
+   state: absent
+   
+
+
+- name: Create symlink to {{service_name}} service
+  file:
+    src: '{{deployment_app_directory}}{{ BUILD_NUMBER }}'
+    dest: '{{deployment_app_directory}}service'
+    state: link
+
+- name: reload {{service_name}} systemctl service
+  shell: systemctl daemon-reload
+ 
+- name: Enable {{service_name}} systemctl service
+  shell: systemctl enable {{service_name}}.service
+  
+- name: Stop {{service_name}} | Stopping service
+  shell: systemctl stop {{service_name}}.service
+
+- name: Wait for 10 seconds to finish stream tasks
+  pause:
+     seconds: 10
+
+- name: Start {{service_name}}
+  shell: systemctl start {{service_name}}.service
+  async: 45
+  poll: 0
+
+- name: Wait for 120 seconds for Application start
+  pause:
+    minutes: 2

@@ -1,0 +1,11 @@
+{
+  "statusCode": "SUCCESS",
+  "statusMessage": "Scheduled job has been deleted successfully",
+  "payload": {
+    "name": "TEST_JOB",
+    "group": "TEST_GROUP",
+    "status": false,
+    "parameters": {},
+    "startAt": 0
+  }
+}

@@ -1,0 +1,7 @@
+---
+- name: Service Health Check API.
+  uri:
+    url: http://localhost:18080/v1/health/366xhegrndhfspwiryrskwhd0801
+    method: GET
+    status_code: 200
+    body_format: json

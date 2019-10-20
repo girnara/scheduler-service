@@ -1,0 +1,10 @@
+---
+
+- name: Stop {{serviceName}} | Stopping service
+  shell: systemctl stop {{serviceName}}.service
+
+- name: Start {{serviceName}} Service
+  shell: systemctl start {{serviceName}}.service
+  async: 45
+  poll: 0
+

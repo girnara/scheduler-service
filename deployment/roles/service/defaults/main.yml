@@ -1,0 +1,10 @@
+jdk_version: '8'
+symlnk_to: 'java{{ jdk_version }}'
+accept_oracle_licence: true
+deployment_app_directory: '/App/core/scheduler-service/'
+app_log_directory: '/App/log/core/scheduler-service/'
+service_name: 'scheduler'
+env: 'dev'
+xms: '1g'
+xmx: '1g'
+service_jar: '{{ deployment_app_directory }}service/scheduler-service-1.0.0.jar'
