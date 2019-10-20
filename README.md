@@ -1,6 +1,6 @@
 # Distributed Scheduler Service
 
-Distributed Scheduler Service - A distributed scheduler service provide API based scheduling job. It provides an API to schedule a job for given cron expression.
+Distributed Scheduler Service - A distributed scheduler service provide API based job scheduling. It provides an API to schedule a job for given cron expression.
 It also provide an API to reschedule or delete existing scheduled job. It is distributed and runs in cluster mode to divide the jobs between its running instances.
 It is built with springboot framework, quartz scheduler with mysql as persistent store.
 In job detail info, client can pass webhook url which will be triggered at mentioned cron schedule. i.e. At the time of execution of job, scheduler-service will call webhook url with all job meta information. 
