@@ -37,13 +37,13 @@ Service provide following features.
 
    
 ### Webhook Implementation
-   - Client need to implement the HTTP POST webhook method in there APP to listen the trigger event. i.e. TestController in `scr/main/java/in/ind/core/controllers.TestController` to do your custom operations.
+   - Client need to implement the HTTP POST method Webhook in the APP to listen the trigger event. i.e. TestController in `scr/main/java/in/ind/core/controllers.TestController` to do your custom operations.
    - The SLA for Webhook is defined to 10 seconds. If App is not responding in 10 seconds it will considered it as failed and will retry exponentially(Default MAX attempt is 5). The client should implement the Async way to handle big ETL load. i.e. Using KAFKA Queue, Celery with RabbitMQ/Redis.
    
-### Future Features
+### Future Work
    - Configurable retry handler.
    - Async API invocation.
-   - Job execution history with detailed logs.          
+   - Job execution history with detailed job audit.          
     
 ### Scheduling a job using APIs
 
