@@ -2,6 +2,5 @@
 *.iml
 .settings/
 .project
-.mvn/
 .classpath
 /target/

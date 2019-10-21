@@ -161,6 +161,15 @@ $ cd deployment
 $ sudo ansible-playbook -e "env=dev"  -e "BUILD_NUMBER=100"  -e "SCHEDULER_DATABASE_URL=jdbc:mysql://localhost/quartz" -e "SCHEDULER_DATABASE_USER=root" -e "SCHEDULER_DATABASE_PASSWORD=" -i inventory/awsdev-hosts site.yml
 ```
 
+### SwaggerUI
+#### Home Page
+![SwaggerHome](./swagger.png "SwaggerHome")
+#### JobDetailInfo Model
+![JobDetailInfo](./model.png "JobDetailInfo")
+#### Schedule API
+![ScheduleAPI](./schedule.png "ScheduleAPI")
+#### Reschedule API
+![RescheduleAPI](./reschedule.png "RescheduleAPI")
 
 ### Logging
 Logs are available for different environment in different file. Each file as size cap of 200MB and purged automatically after the number of days limit.
