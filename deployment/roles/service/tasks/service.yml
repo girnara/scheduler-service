@@ -10,6 +10,9 @@
 
 - name: Service Dependencies | Copy template script
   template: src={{service_name}}.sh.j2 dest={{deployment_app_directory}}/{{ BUILD_NUMBER }}/{{service_name}}.sh mode=0754
+
+- name: Service Dependencies | Copy application.properties
+  template: src=application-{{env}}.properties.j2 dest={{deployment_app_directory}}/{{ BUILD_NUMBER }}/application-{{env}}.properties mode=0754
   
 - name: Service Dependencies | Copy systemctl template to target host
   template: src={{service_name}}.service.j2 dest=/etc/systemd/system/{{service_name}}.service mode=0664
@@ -18,8 +21,6 @@
   file:
    path: '"{{deployment_app_directory}}"/service'
    state: absent
-   
-
 
 - name: Create symlink to {{service_name}} service
   file:

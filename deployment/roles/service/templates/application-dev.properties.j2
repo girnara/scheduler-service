@@ -1,0 +1,10 @@
+server.port=18080
+rest.api.timeout=10000
+logging.config=classpath:logback/logback-dev.xml
+spring.jpa.hibernate.ddl-auto=none
+spring.datasource.url={{SCHEDULER_DATABASE_URL}}
+spring.datasource.password={{SCHEDULER_DATABASE_PASSWORD}}
+spring.datasource.username={{SCHEDULER_DATABASE_USER}}
+liquibase.changeLog=classpath:/db/changelog/db.changelog-master.xml
+quartz.enabled=true
+samplejob.frequency=2000

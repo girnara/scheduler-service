@@ -1,4 +1,4 @@
 ---
-- include: dependencies.yml
+#- include: dependencies.yml
 - include: service.yml
 - include: api_call.yml

@@ -1,26 +1,26 @@
 #!/bin/sh
 SERVICE_NAME={{service_name}}
 PATH_TO_JAR={{service_jar}}
-APP_ENV='{{env}}'
+APP_ENV_PROPERTIES='{{env_properties}}'
 XMX_VALUE='{{xmx}}'
 XMS_VALUE='{{xms}}'
 ENV={{env}}
 case $1 in
     start)
         echo "Starting $SERVICE_NAME ..."
-        nohup java -Dspring.profiles.active=$APP_ENV -XX:+UseG1GC -Xmx${XMX_VALUE} -Xms${XMS_VALUE} -jar $PATH_TO_JAR 2>> /dev/null >> /dev/null &
+        nohup java -Dspring.config.location=$APP_ENV_PROPERTIES -XX:+UseG1GC -Xmx${XMX_VALUE} -Xms${XMS_VALUE} -jar $PATH_TO_JAR 2>> /dev/null >> /dev/null &
         echo "$SERVICE_NAME Started"
     ;;
     stop)
         echo "$SERVICE_NAME stoping ..."
-        sudo ps xu | grep parking-application |grep -v grep | awk '{ print $2 }' | xargs sudo kill
+        sudo ps xu | grep scheduler-service |grep -v grep | awk '{ print $2 }' | xargs sudo kill
         echo "$SERVICE_NAME stopped ..."
     ;;
     restart)
         echo "$SERVICE_NAME stoping ..."
-        sudo ps xu | grep parking-application |grep -v grep | awk '{ print $2 }' | xargs sudo kill
+        sudo ps xu | grep scheduler-service |grep -v grep | awk '{ print $2 }' | xargs sudo kill
         echo "Starting $SERVICE_NAME ..."
-        nohup java -Dspring.profiles.active=$APP_ENV -XX:+UseG1GC -Xmx${XMX_VALUE} -Xms${XMS_VALUE} -jar $PATH_TO_JAR 2>> /dev/null >> /dev/null &
+        nohup java -Dspring.config.location=$APP_ENV_PROPERTIES -XX:+UseG1GC -Xmx${XMX_VALUE} -Xms${XMS_VALUE} -jar $PATH_TO_JAR 2>> /dev/null >> /dev/null &
         echo "$SERVICE_NAME Started"
     ;;
 esac

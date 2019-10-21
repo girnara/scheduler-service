@@ -158,7 +158,7 @@ $ export BUILD_NUMBER=100
 $ mkdir -p deployment/application/$BUILD_NUMBER
 $ cp target/scheduler-service-1.0.0.jar deployment/application/$BUILD_NUMBER/scheduler-service-1.0.0.jar
 $ cd deployment
-$ sudo ansible-playbook -e "env=dev"  -e "BUILD_NUMBER=100" -i inventory/awsdev-hosts site.yml
+$ sudo ansible-playbook -e "env=dev"  -e "BUILD_NUMBER=100"  -e "SCHEDULER_DATABASE_URL=jdbc:mysql://localhost/quartz" -e "SCHEDULER_DATABASE_USER=root" -e "SCHEDULER_DATABASE_PASSWORD=" -i inventory/awsdev-hosts site.yml
 ```
 
 
