@@ -26,6 +26,25 @@ You need to install java 1.8 on your system before starting this project.
 Install JAVA 1.8 on your development environment
 ```
 
+### Features
+Service provide following features.
+   - Distributed Job Schedule
+   - Trigger registered webhook(job config webhook url) at every execution of specific job.
+   - Exponential failure Handling
+   - Fault Tolerant and resilient in nature for executing a JOB(handles misfire with default timeout as 1 minutes.)
+   - Reschedule a already scheduled JOB
+   - Cancel a already scheduled JOB
+
+   
+### Webhook Implementation
+   - Client need to implement the HTTP POST webhook method in there APP to listen the trigger event. i.e. TestController in `scr/main/java/in/ind/core/controllers.TestController` to do your custom operations.
+   - The SLA for Webhook is defined to 10 seconds. If App is not responding in 10 seconds it will considered it as failed and will retry exponentially(Default MAX attempt is 5). The client should implement the Async way to handle big ETL load. i.e. Using KAFKA Queue, Celery with RabbitMQ/Redis.
+   
+### Future Features
+   - Configurable retry handler.
+   - Async API invocation.
+   - Job execution history with detailed logs.          
+    
 ### Scheduling a job using APIs
 
 Once application is up and running
