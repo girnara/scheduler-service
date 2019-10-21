@@ -190,7 +190,7 @@ in.ind.core.helpers     : All the Application helpers used for different service
 in.ind.core.jobs        : All the jobs defined for scheduler service. i.e. InvokeApiJob for calling the client webhook at speficified cron trigger.
 in.ind.core.models      : All the domain model service objects are available in this package.
 in.ind.core.services    : All the application services and its definition available in that. i.e. RestApiService, SchedulerService.
-in.ind.core.utls        : All the utility class and methods are available in this package.
+in.ind.core.utils        : All the utility class and methods are available in this package.
 ```
 
 ### Authors
