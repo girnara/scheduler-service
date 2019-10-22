@@ -4,6 +4,7 @@ import in.ind.core.Constants;
 import in.ind.core.exceptions.NonRecoverableException;
 import in.ind.core.models.JobDetailInfo;
 import in.ind.core.utils.DateUtils;
+import org.quartz.CronExpression;
 import org.quartz.JobExecutionContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -56,26 +57,39 @@ public class JobContextHelper {
      * Validate job name and group job context helper.
      *
      * @param jobDetailInfo the job detail info
-     * @return the job context helper
      * @throws NonRecoverableException the non recoverable exception
      */
-    public JobContextHelper validateJobNameAndGroup(JobDetailInfo jobDetailInfo) throws NonRecoverableException {
+    public void validateJobNameAndGroup(JobDetailInfo jobDetailInfo) throws NonRecoverableException {
         if(StringUtils.isEmpty(jobDetailInfo.getName()) || StringUtils.isEmpty(jobDetailInfo.getGroup())) {
             throw new NonRecoverableException("JobName and group name can not be null",
                     Constants.ExceptionCode.JOB_NAME_AND_GROUP_CAN_NOT_BE_EMPTY_ERROR);
         }
-        return this;
     }
 
     /**
      * Validate schedule data job context helper.
      *
      * @param jobDetailInfo the job detail info
-     * @return the job context helper
      * @throws NonRecoverableException the non recoverable exception
      */
-    public JobContextHelper validateScheduleData(JobDetailInfo jobDetailInfo) throws NonRecoverableException {
+    public void validateScheduleData(JobDetailInfo jobDetailInfo) throws NonRecoverableException {
         validateJobNameAndGroup(jobDetailInfo);
+
+        if(!CronExpression.isValidExpression(jobDetailInfo.getCronExpression())) {
+            throw new NonRecoverableException(String.format("cronExpression=%s is not valid",
+                    jobDetailInfo.getCronExpression()), Constants.ExceptionCode.CRON_EXPRESSION_INVALID_ERROR);
+        }
+        if(jobDetailInfo.getStartNow() == null || !jobDetailInfo.getStartNow()) {
+            long timestamp = jobDetailInfo.getStartAt();
+            long currentTimestamp = DateUtils.getCurrentUTCTimestamp();
+            long offset = timestamp - currentTimestamp;
+            if(offset <= 0) {
+                throw new NonRecoverableException(String.format("startAt=%s timestamp should be in future i.e",
+                        DateUtils.getDateFromUTCTimestamp(timestamp).toString()),
+                        Constants.ExceptionCode.CRON_START_AT_TIMESTAMP_INVALID_ERROR);
+            }
+
+        }
         if(StringUtils.isEmpty(jobDetailInfo.getCronExpression()) || jobDetailInfo.getStatus() == null) {
             throw new NonRecoverableException("Cron Expression and status can not be empty",
                     Constants.ExceptionCode.CRON_EXPRESSION_AND_STATUS_EMPTY_ERROR);
@@ -85,7 +99,6 @@ public class JobContextHelper {
             throw new NonRecoverableException("Webhook URL can not be empty",
                     Constants.ExceptionCode.WEBHOOK_URL_EMPTY_ERROR);
         }
-        return this;
     }
 
 

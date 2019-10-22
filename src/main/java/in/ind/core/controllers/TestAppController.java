@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/test/")
 public class TestAppController {
-    @Autowired
-    private SchedulerService schedulerService;
 
     /**
      * Webhook response entity.
@@ -32,15 +30,15 @@ public class TestAppController {
      */
     @RequestMapping(value = "webhook", method = RequestMethod.POST,
             produces = "application/json")
-    public ResponseEntity<ServiceResponse> webhook(@RequestBody JobDetailInfo jobDetailInfo) throws Exception {
+    public ResponseEntity<ServiceResponse<JobDetailInfo>> webhook(@RequestBody JobDetailInfo jobDetailInfo) throws Exception {
         log.info(String.format("Request received %s", JsonUtility.toString(jobDetailInfo)));
         // Do your stuff Async Way i.e. Invoke Celery Task for computing triggers
-        ServiceResponse serviceResponse = new ServiceResponse();
+        ServiceResponse<JobDetailInfo> serviceResponse = new ServiceResponse<>();
         jobDetailInfo.setInvoked(Boolean.TRUE);
         serviceResponse.setStatusCode(Constants.SUCCESS_MESSAGE);
         serviceResponse.setStatusMessage(Constants.REQUEST_ACCEPTED_SUCCESSFULLY);
         serviceResponse.setPayload(jobDetailInfo);
         log.info(String.format("Response sent %s", JsonUtility.toString(serviceResponse)));
-        return new ResponseEntity<ServiceResponse>(serviceResponse, HttpStatus.OK);
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 }

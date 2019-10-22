@@ -33,15 +33,15 @@ public class JobController {
      */
     @RequestMapping(value = "schedule", method = RequestMethod.POST,
             produces = "application/json")
-    public ResponseEntity<ServiceResponse> schedule(@RequestBody JobDetailInfo jobDetailInfo) throws Exception {
+    public ResponseEntity<ServiceResponse<JobDetailInfo>> schedule(@RequestBody JobDetailInfo jobDetailInfo) throws Exception {
         log.info(String.format("Schedule Job Request received %s", JsonUtility.toString(jobDetailInfo)));
-        ServiceResponse serviceResponse = new ServiceResponse();
+        ServiceResponse<JobDetailInfo> serviceResponse = new ServiceResponse<>();
         serviceResponse.setStatusCode(Constants.SUCCESS_MESSAGE);
         serviceResponse.setStatusMessage(Constants.JOB_SCHEDULE_SUCCESS_MESSAGE);
         JobDetailInfo jobDetailInfoUpdated = schedulerService.schedule(jobDetailInfo);
         serviceResponse.setPayload(jobDetailInfoUpdated);
         log.info(String.format("Schedule Job Response sent %s", JsonUtility.toString(serviceResponse)));
-        return new ResponseEntity<ServiceResponse>(serviceResponse, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(serviceResponse, HttpStatus.ACCEPTED);
     }
 
     /**
@@ -54,14 +54,14 @@ public class JobController {
      * @throws Exception the exception
      */
     @RequestMapping(value = "reschedule/{name}/{group}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<ServiceResponse> reschedule(@PathVariable("name") String name,
+    public ResponseEntity<ServiceResponse<JobDetailInfo>> reschedule(@PathVariable("name") String name,
                                                       @PathVariable("group") String group,
                                                       @RequestBody JobDetailInfo jobDetailInfo) throws Exception {
         jobDetailInfo.setName(name);
         jobDetailInfo.setGroup(group);
         log.info(String.format("Reschedule Request received %s", JsonUtility.toString(jobDetailInfo)));
         JobDetailInfo jobDetailInfoUpdated = schedulerService.reschedule(jobDetailInfo);
-        ServiceResponse serviceResponse = new ServiceResponse();
+        ServiceResponse<JobDetailInfo> serviceResponse = new ServiceResponse<>();
         serviceResponse.setStatusCode(Constants.SUCCESS_MESSAGE);
         if(jobDetailInfo.getStatus()) {
             serviceResponse.setStatusMessage(Constants.JOB_RESCHEDULE_SUCCESS_MESSAGE);
@@ -70,6 +70,6 @@ public class JobController {
         }
         serviceResponse.setPayload(jobDetailInfoUpdated);
         log.info(String.format("Reschedule Response sent %s", JsonUtility.toString(serviceResponse)));
-        return new ResponseEntity<ServiceResponse>(serviceResponse, HttpStatus.OK);
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
     }
 }

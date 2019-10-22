@@ -29,8 +29,8 @@ public class HealthCheckController {
    * @throws Exception the exception
    */
   @RequestMapping(value = "/{secretKey}", method = RequestMethod.GET, produces = "application/json")
-  public ResponseEntity<ServiceResponse> healthCheck(@PathVariable("secretKey") String secretKey) throws Exception {
-    ServiceResponse serviceResponse = new ServiceResponse();
+  public ResponseEntity<ServiceResponse<String>> healthCheck(@PathVariable("secretKey") String secretKey) throws Exception {
+    ServiceResponse<String> serviceResponse = new ServiceResponse<>();
     if(StringUtils.isEmpty(secretKey) || !secretKey.equals(Constants.SECRET_KEY)) {
       throw new NonRecoverableException("Authorization failed for HealthCheckEndpoint", Constants.ExceptionCode.AUTHORIZATION_FAILED_ERROR);
     }

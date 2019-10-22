@@ -84,6 +84,15 @@ public abstract class Constants {
          * Cron expression and status empty error exception code.
          */
         CRON_EXPRESSION_AND_STATUS_EMPTY_ERROR,
+
+        /**
+         * Cron expression invalid
+         */
+        CRON_EXPRESSION_INVALID_ERROR,
+        /**
+         * Cron start at timestamp error
+         */
+        CRON_START_AT_TIMESTAMP_INVALID_ERROR,
         /**
          * Webhook url empty error exception code.
          */

@@ -18,10 +18,10 @@ import java.io.Serializable;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ServiceResponse implements Serializable {
+public class ServiceResponse<T> implements Serializable {
     private static final long serialVersionUID = -8059180865633357287L;
     private String statusCode;
     private String statusMessage;
     private Constants.ExceptionCode exceptionCode;
-    private transient Object payload;
+    private T payload;
 }
