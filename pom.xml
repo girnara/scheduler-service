@@ -27,7 +27,7 @@
         <apache.http.client.version>4.5</apache.http.client.version>
         <lombok.lib.version>1.18.10</lombok.lib.version>
         <spring.swagger.ui.version>2.6.1</spring.swagger.ui.version>
-        <quartz.scheduler.version>2.2.3</quartz.scheduler.version>
+        <quartz.scheduler.version>2.3.2</quartz.scheduler.version>
     </properties>
 
     <dependencies>
